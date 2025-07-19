@@ -27,6 +27,28 @@ class AuthService {
 
     return user;
   };
+
+  getActiveUserByUsername = async (username) => {
+    const user = await this.prisma.users.findFirst({
+      where: {
+        username,
+        isActive: true,
+      },
+    });
+
+    return user;
+  };
+
+  getUserById = async (id) => {
+    const user = await this.prisma.users.findUnique({
+      where: { id },
+      include: {
+        roles: true,
+      },
+    });
+
+    return user;
+  };
 }
 
 export default new AuthService();

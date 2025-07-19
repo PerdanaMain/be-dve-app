@@ -11,6 +11,13 @@ class Schema {
         .oneOf([Yup.ref("password")], "password not match!"),
     });
   };
+
+  loginSchema = () => {
+    return Yup.object({
+      username: Yup.string().required("username is required!"),
+      password: Yup.string().required("password is required!"),
+    });
+  };
 }
 
 export default new Schema();
