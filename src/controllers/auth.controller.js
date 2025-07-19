@@ -1,5 +1,5 @@
 import Schema from "../utils/schema.js";
-import AuthService from "../services/auth.service.js";
+import UserService from "../services/user.service.js";
 import JWT from "../utils/jwt.js";
 import { encrypt } from "../utils/encryption.js";
 
@@ -14,14 +14,14 @@ class AuthController {
         confirmPassword,
       });
 
-      const isExist = await AuthService.getUserByUsername(username);
+      const isExist = await UserService.getUserByUsername(username);
 
       if (isExist) {
         throw new Error("username already exist!");
       }
 
       const hashedPassword = encrypt(password);
-      const data = await AuthService.createUser({
+      const data = await UserService.createUser({
         fullname,
         username,
         password: hashedPassword,
@@ -47,7 +47,7 @@ class AuthController {
         password,
       });
 
-      const user = await AuthService.getActiveUserByUsername(username);
+      const user = await UserService.getActiveUserByUsername(username);
 
       if (!user) {
         throw new Error("user not found!");
@@ -78,7 +78,7 @@ class AuthController {
   me = async (req, res) => {
     try {
       const { id } = req.user;
-      const user = await AuthService.getUserById(id);
+      const user = await UserService.getUserById(id);
       res.status(200).json({
         message: "Success get profile data",
         data: user,

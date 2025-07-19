@@ -7,11 +7,17 @@ class AuthService {
 
   createUser = async (data) => {
     const { fullname, username, password } = data;
+    const role = await this.prisma.roles.findFirst({
+      where: {
+        name: "User",
+      },
+    });
     const user = await this.prisma.users.create({
       data: {
         fullname,
         username,
         password,
+        roleId: role.id,
       },
     });
 
@@ -48,6 +54,29 @@ class AuthService {
     });
 
     return user;
+  };
+
+  getAllUser = async () => {
+    return await this.prisma.users.findMany({
+      where: {
+        NOT: {
+          roles: {
+            name: "admin",
+          },
+        },
+      },
+    });
+  };
+
+  updateUserActivation = async (id, isActive) => {
+    return await this.prisma.users.update({
+      where: {
+        id,
+      },
+      data: {
+        isActive,
+      },
+    });
   };
 }
 

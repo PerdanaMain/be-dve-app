@@ -18,6 +18,15 @@ class Schema {
       password: Yup.string().required("password is required!"),
     });
   };
+
+  userActivationSchema = () => {
+    return Yup.object({
+      id: Yup.string()
+        .required("id is required!")
+        .uuid("id must be a valid UUID!"),
+      activate: Yup.boolean().required(),
+    });
+  };
 }
 
 export default new Schema();

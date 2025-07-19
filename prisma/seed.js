@@ -22,6 +22,7 @@ async function main() {
 
   await prisma.users.create({
     data: {
+      fullname: "admin",
       username: "admin",
       password: encrypt("admin"),
       isActive: true,
