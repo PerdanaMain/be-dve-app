@@ -3,9 +3,11 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { port } from "./utils/env.js";
 import api from "./routes/api.js";
+import db from "./utils/database.js";
 
 const main = async () => {
   try {
+    const connection = await db.connect();
     const app = express();
 
     app.use(cors());
@@ -16,6 +18,7 @@ const main = async () => {
       res.status(200).json({
         message: "DVE API Ready!",
         data: null,
+        db: connection,
       });
     });
     app.use(api);

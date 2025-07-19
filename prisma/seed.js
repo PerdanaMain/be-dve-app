@@ -24,6 +24,7 @@ async function main() {
     data: {
       username: "admin",
       password: encrypt("admin"),
+      isActive: true,
       roleId: role.id,
     },
   });
