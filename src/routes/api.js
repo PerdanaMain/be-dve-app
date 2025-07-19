@@ -4,20 +4,20 @@ import AuthController from "../controllers/auth.controller.js";
 import AdminController from "../controllers/admin.controller.js";
 
 const router = express.Router();
-
+const prefix = "/api";
 // route: authentication
-router.post("/auth/register", AuthController.register);
-router.post("/auth/login", AuthController.login);
-router.get("/auth/me", AuthMiddleware.verifyToken, AuthController.me);
+router.post(prefix + "/auth/register", AuthController.register);
+router.post(prefix + "/auth/login", AuthController.login);
+router.get(prefix + "/auth/me", AuthMiddleware.verifyToken, AuthController.me);
 
 // route: admin
 router.get(
-  "/admin/users",
+  prefix + "/admin/users",
   AuthMiddleware.verifyAdmin,
   AdminController.userList
 );
 router.put(
-  "/admin/activation",
+  prefix + "/admin/activation",
   AuthMiddleware.verifyAdmin,
   AdminController.userActivation
 );
