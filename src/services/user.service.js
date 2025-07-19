@@ -25,7 +25,7 @@ class AuthService {
   };
 
   getUserByUsername = async (username) => {
-    const user = await this.prisma.users.findFirstOrThrow({
+    const user = await this.prisma.users.findFirst({
       where: {
         username,
       },
