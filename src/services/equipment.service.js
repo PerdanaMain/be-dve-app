@@ -57,6 +57,31 @@ class EquipmentService {
       },
     });
   };
+
+  updateEquipment = async (id, data) => {
+    return this.prisma.equipments.update({
+      where: {
+        id,
+      },
+      data: {
+        hostname: data.hostname,
+        brand: data.brand,
+        type: data.type,
+        serialnumber: data.serialnumber,
+        function: data.function,
+        category: data.category,
+        group: data.group,
+      },
+    });
+  };
+
+  deleteEquipmentById = async (id) => {
+    return this.prisma.equipments.delete({
+      where: {
+        id,
+      },
+    });
+  };
 }
 
 export default new EquipmentService();

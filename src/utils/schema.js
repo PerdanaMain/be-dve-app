@@ -51,6 +51,30 @@ class Schema {
         .oneOf(["CORE", "IN", "IT"], "type must be one of: CORE, IN, IT"),
     });
   };
+
+   updateEquipmentSchema = () => {
+    return Yup.object({
+      hostname: Yup.string().required("hostname is required!").min(6),
+      type: Yup.string().required("type is required!"),
+      brand: Yup.string().required("brand is required!"),
+      serialnumber: Yup.string().required("serial number is required!"),
+      function: Yup.string()
+        .required("function is required!")
+        .oneOf(
+          ["SERVER", "SWITCH", "FIREWALL", "GGSN", "DISCOVERY"],
+          "type must be one of: SERVER, SWITCH, FIREWALL"
+        ),
+      category: Yup.string()
+        .required("category is required!")
+        .oneOf(
+          ["SERVER", "SWITCH", "FIREWALL", "GGSN", "DISCOVERY"],
+          "type must be one of: SERVER, SWITCH, FIREWALL"
+        ),
+      group: Yup.string()
+        .required("group is required!")
+        .oneOf(["CORE", "IN", "IT"], "type must be one of: CORE, IN, IT"),
+    });
+  };
 }
 
 export default new Schema();

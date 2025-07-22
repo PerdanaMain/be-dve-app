@@ -27,6 +27,16 @@ router.post(
   AuthMiddleware.verifyToken,
   EquipmentController.create
 );
+router.put(
+  prefix + "/equipment/:id",
+  AuthMiddleware.verifyToken,
+  EquipmentController.update
+);
+router.delete(
+  prefix + "/equipment/:id",
+  AuthMiddleware.verifyToken,
+  EquipmentController.destroy
+);
 
 // route: admin
 router.get(

@@ -105,6 +105,74 @@ class EquipmentController {
       });
     }
   };
+
+  update = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const {
+        hostname,
+        brand,
+        type,
+        serialnumber,
+        function_name,
+        category,
+        group,
+      } = req.body;
+
+      await Schema.createEquipmentSchema().validate({
+        hostname,
+        brand,
+        type,
+        serialnumber,
+        function: function_name,
+        category,
+        category,
+        group,
+      });
+
+      const exist = await EquipmentService.getEquipmentByIdentifier(id);
+      if (!exist) {
+        throw new Error(`Equipment not found!`);
+      }
+
+      const equipment = await EquipmentService.updateEquipment(id, {
+        hostname,
+        brand,
+        type,
+        serialnumber,
+        function: function_name,
+        category,
+        category,
+        group,
+      });
+
+      res.status(200).json({
+        message: "Update equipment  successfully!",
+        data: equipment,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+        data: null,
+      });
+    }
+  };
+
+  destroy = async (req, res) => {
+    try {
+      const { id } = req.params;
+      await EquipmentService.deleteEquipmentById(id);
+      res.status(200).json({
+        message: "Equipment deleted  successfully!",
+        data: null,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+        data: null,
+      });
+    }
+  };
 }
 
 export default new EquipmentController();
