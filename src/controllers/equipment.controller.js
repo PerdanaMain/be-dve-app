@@ -1,4 +1,5 @@
 import EquipmentService from "../services/equipment.service.js";
+import Schema from "../utils/schema.js";
 
 class EquipmentController {
   index = async (req, res) => {
@@ -35,6 +36,47 @@ class EquipmentController {
   };
   create = async (req, res) => {
     try {
+      const {
+        hostname,
+        brand,
+        type,
+        serialnumber,
+        function_name,
+        category,
+        group,
+      } = req.body;
+
+      await Schema.createEquipmentSchema().validate({
+        hostname,
+        brand,
+        type,
+        serialnumber,
+        function: function_name,
+        category,
+        category,
+        group,
+      });
+
+      const exist = await EquipmentService.getEquipmentBySerialNumber(
+        serialnumber
+      );
+      if (exist) {
+        throw new Error(
+          `Equipment with serial number ${serialnumber} is already exist!`
+        );
+      }
+
+      await EquipmentService.createEquipment({
+        hostname,
+        brand,
+        type,
+        serialnumber,
+        function: function_name,
+        category,
+        category,
+        group,
+      });
+
       res.status(200).json({
         message: "Equipment created successfully!",
         data: null,
