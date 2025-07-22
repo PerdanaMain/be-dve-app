@@ -88,6 +88,23 @@ class EquipmentController {
       });
     }
   };
+  show = async (req, res) => {
+    try {
+      const { identifier } = req.query;
+      const equipment = await EquipmentService.getEquipmentByIdentifier(
+        identifier
+      );
+      res.status(200).json({
+        message: "Get equipment  successfully!",
+        data: equipment,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+        data: null,
+      });
+    }
+  };
 }
 
 export default new EquipmentController();

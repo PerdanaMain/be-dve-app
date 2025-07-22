@@ -17,6 +17,11 @@ router.get(
   AuthMiddleware.verifyToken,
   EquipmentController.index
 );
+router.get(
+  prefix + "/equipment",
+  AuthMiddleware.verifyToken,
+  EquipmentController.show
+);
 router.post(
   prefix + "/equipment/create",
   AuthMiddleware.verifyToken,

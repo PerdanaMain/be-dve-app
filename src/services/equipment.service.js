@@ -30,6 +30,20 @@ class EquipmentService {
     });
   };
 
+  getEquipmentByIdentifier = async (identifier) => {
+    return this.prisma.equipments.findFirst({
+      where: {
+        OR: [
+          {
+            id: identifier,
+          },
+          { serialnumber: identifier },
+        ],
+      },
+      include: { maintenances: true },
+    });
+  };
+
   createEquipment = async (data) => {
     return this.prisma.equipments.create({
       data: {
