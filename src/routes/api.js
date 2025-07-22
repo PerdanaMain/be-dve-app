@@ -2,6 +2,7 @@ import express from "express";
 import AuthMiddleware from "../middlewares/auth.middleware.js";
 import AuthController from "../controllers/auth.controller.js";
 import AdminController from "../controllers/admin.controller.js";
+import EquipmentController from "../controllers/equipment.controller.js";
 
 const router = express.Router();
 const prefix = "/api";
@@ -9,6 +10,13 @@ const prefix = "/api";
 router.post(prefix + "/auth/register", AuthController.register);
 router.post(prefix + "/auth/login", AuthController.login);
 router.get(prefix + "/auth/me", AuthMiddleware.verifyToken, AuthController.me);
+
+// route: equipment
+router.get(
+  prefix + "/equipments",
+  AuthMiddleware.verifyToken,
+  EquipmentController.index
+);
 
 // route: admin
 router.get(

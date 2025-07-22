@@ -2,7 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 class AuthService {
   constructor() {
-    this.prisma = new PrismaClient();
+    this.prisma = new PrismaClient({
+      log: ["info"],
+    });
   }
 
   createUser = async (data) => {
