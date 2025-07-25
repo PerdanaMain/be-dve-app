@@ -3,6 +3,7 @@ import AuthMiddleware from "../middlewares/auth.middleware.js";
 import AuthController from "../controllers/auth.controller.js";
 import AdminController from "../controllers/admin.controller.js";
 import EquipmentController from "../controllers/equipment.controller.js";
+import MaintenanceController from "../controllers/maintenance.controller.js";
 
 const router = express.Router();
 const prefix = "/api";
@@ -36,6 +37,13 @@ router.delete(
   prefix + "/equipment/:id",
   AuthMiddleware.verifyToken,
   EquipmentController.destroy
+);
+
+// route: maintenance
+router.get(
+  prefix + "/maintenances",
+  AuthMiddleware.verifyToken,
+  MaintenanceController.index
 );
 
 // route: admin
